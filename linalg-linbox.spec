@@ -17,7 +17,7 @@ algebra computation with dense, sparse, and structured matrices over
 the integers and over finite fields.
 
 %package	devel
-Group:		Science/Mathematics
+Group:		Development/Other
 Summary:	LinBox development files
 Requires:	%{name}
 
