@@ -7,7 +7,7 @@ Group:		Sciences/Mathematics
 Source0:	http://www.linalg.org/linbox-%{version}.tar.gz
 URL:		http://www.linalg.org/
 
-BuildRequires:	libatlas-devel libgmpxx-devel
+BuildRequires:	libatlas-devel libgmpxx-devel givaro-devel
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
