@@ -18,7 +18,7 @@ BuildRequires:	givaro-devel
 BuildRequires:	libatlas-devel
 BuildRequires:	libblas-devel
 BuildRequires:	libgmpxx-devel
-BuildRequires:	libntl-devel
+BuildRequires:	ntl-devel
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
