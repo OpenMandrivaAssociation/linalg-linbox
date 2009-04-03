@@ -53,7 +53,7 @@ This package contains the LinBox development files.
 	--with-ntl=%{_prefix}			\
 	--enable-optimization			\
 	--enable-sage
-%make
+%make CFLAGS="%{optflags} -fPIC"
 
 %install
 %makeinstall_std
