@@ -8,7 +8,7 @@
 Name:		linalg-linbox
 Summary:	Exact computational linear algebra
 Version:	1.1.6
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPL
 Group:		Sciences/Mathematics
 Source0:	http://www.linalg.org/linbox-%{version}.tar.gz
@@ -17,6 +17,7 @@ URL:		http://www.linalg.org/
 BuildRequires:	givaro-devel
 BuildRequires:	libatlas-devel
 BuildRequires:	libblas-devel
+BuildRequires:	libgmp-devel
 BuildRequires:	libgmpxx-devel
 BuildRequires:	ntl-devel
 
@@ -52,7 +53,8 @@ This package contains the LinBox development files.
 	--with-givaro=%{_prefix}		\
 	--with-ntl=%{_prefix}			\
 	--enable-optimization			\
-	--enable-sage
+	--enable-sage				\
+	--disable-static
 %make
 
 %install
@@ -71,10 +73,8 @@ rm -rf %{buildroot}
 %{_bindir}/linbox-config
 %dir %{_includedir}/linbox
 %{_includedir}/linbox/*
-%{_libdir}/liblinbox.a
 %{_libdir}/liblinbox.la
 %{_libdir}/liblinbox.so
-%{_libdir}/liblinboxsage.a
 %{_libdir}/liblinboxsage.la
 %{_libdir}/liblinboxsage.so
 %{_mandir}/man1/linbox-config.1*
