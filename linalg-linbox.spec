@@ -20,6 +20,8 @@ BuildRequires:	ntl-devel
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
+Patch0:		linbox-1.1.6-sage.diff 
+
 %description
 LinBox is a C++ template library for exact, high-performance linear
 algebra computation with dense, sparse, and structured matrices over
@@ -36,6 +38,8 @@ This package contains the LinBox development files.
 %prep
 %setup -q -n linbox-%{version}
 
+%patch0 -p1
+
 %build
 
 %configure2_5x					\
@@ -47,7 +51,7 @@ This package contains the LinBox development files.
 	--enable-sage				\
 	--disable-static
 
-perl -pi -e 's|#(liblinboxsage_la_LIBADD =)|$1|g;' interfaces/sage/Makefile
+perl -pi -e 's|#(liblinboxsage_la_LIBADD = )-llinbox|$1../linbox/liblinbox.la|g;' interfaces/sage/Makefile
 %make
 
 %install
