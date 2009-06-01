@@ -51,8 +51,10 @@ This package contains the LinBox development files.
 	--enable-sage				\
 	--disable-static
 
-perl -pi -e 's|#(liblinboxsage_la_LIBADD = )-llinbox|$1../linbox/liblinbox.la|g;' interfaces/sage/Makefile
 %make
+
+perl -pi -e 's|#(liblinboxsage_la_LIBADD = )-llinbox|$1../linbox/liblinbox.la|g;' interfaces/sage/Makefile
+make
 
 %install
 %makeinstall_std
