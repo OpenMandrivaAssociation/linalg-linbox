@@ -1,6 +1,7 @@
 # This causes configure to fail in "finding NTL" due to not finding
 # libgmp symbols in libntl.so in the "try_build" configure program.
 %define _disable_ld_as_needed		1
+%define _disable_ld_no_undefined	1
 
 Name:		linalg-linbox
 Summary:	Exact computational linear algebra
