@@ -6,7 +6,7 @@
 Name:		linalg-linbox
 Summary:	Exact computational linear algebra
 Version:	1.1.6
-Release:	%mkrel 7
+Release:	%mkrel 8
 License:	GPL
 Group:		Sciences/Mathematics
 Source0:	http://www.linalg.org/linbox-%{version}.tar.gz
@@ -54,6 +54,8 @@ This package contains the LinBox development files.
 
 %make
 
+perl -pi -e 's|(^LIBS = .*)|$1 -lntl|;' linbox/Makefile
+touch linbox/dummy.C
 perl -pi -e 's|#(liblinboxsage_la_LIBADD = )-llinbox|$1../linbox/liblinbox.la|g;' interfaces/sage/Makefile
 make
 
