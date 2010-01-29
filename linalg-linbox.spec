@@ -1,7 +1,10 @@
+# Avoid find requires problem with atlas*-devel packages
+%define _requires_exceptions devel(
+
 Name:		linalg-linbox
 Summary:	Exact computational linear algebra
 Version:	1.1.6
-Release:	%mkrel 9
+Release:	%mkrel 10
 License:	GPL
 Group:		Sciences/Mathematics
 Source0:	http://www.linalg.org/linbox-%{version}.tar.gz
@@ -44,7 +47,7 @@ This package contains the LinBox development files.
 
 %configure2_5x					\
 	--with-gmp=%{_prefix}			\
-	--with-blas=%{_libdir}			\
+	--with-blas=%{_libdir}/atlas		\
 	--with-givaro=%{_prefix}		\
 	--with-ntl=%{_prefix}			\
 	--enable-optimization			\
