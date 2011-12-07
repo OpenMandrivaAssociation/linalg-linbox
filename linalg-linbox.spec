@@ -4,7 +4,7 @@
 Name:		linalg-linbox
 Summary:	Exact computational linear algebra
 Version:	1.1.6
-Release:	%mkrel 12
+Release:	%mkrel 13
 License:	GPL
 Group:		Sciences/Mathematics
 Source0:	http://www.linalg.org/linbox-%{version}.tar.gz
@@ -63,6 +63,7 @@ make
 
 %install
 %makeinstall_std
+rm %{buildroot}%{_libdir}/*.la
 
 %clean
 rm -rf %{buildroot}
@@ -77,8 +78,6 @@ rm -rf %{buildroot}
 %{_bindir}/linbox-config
 %dir %{_includedir}/linbox
 %{_includedir}/linbox/*
-%{_libdir}/liblinbox.la
 %{_libdir}/liblinbox.so
-%{_libdir}/liblinboxsage.la
 %{_libdir}/liblinboxsage.so
 %{_mandir}/man1/linbox-config.1*
