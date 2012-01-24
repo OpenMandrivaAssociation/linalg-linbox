@@ -4,7 +4,7 @@
 Name:		linalg-linbox
 Summary:	Exact computational linear algebra
 Version:	1.1.6
-Release:	%mkrel 13
+Release:	%mkrel 14
 License:	GPL
 Group:		Sciences/Mathematics
 Source0:	http://www.linalg.org/linbox-%{version}.tar.gz
