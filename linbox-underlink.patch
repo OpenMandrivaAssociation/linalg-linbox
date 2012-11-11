@@ -1,0 +1,20 @@
+diff -up linbox-1.3.2/linbox/Makefile.in.orig linbox-1.3.2/linbox/Makefile.in
+--- linbox-1.3.2/linbox/Makefile.in.orig	2012-07-03 20:07:41.470885165 -0400
++++ linbox-1.3.2/linbox/Makefile.in	2012-07-03 20:08:27.611886923 -0400
+@@ -154,7 +154,7 @@ LTCXXCOMPILE = $(LIBTOOL) --tag=CXX $(AM
+ CXXLD = $(CXX)
+ CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+-	$(LDFLAGS) -o $@
++	$(liblinbox_la_LDFLAGS) $(LDFLAGS) -o $@
+ SOURCES = $(liblinbox_la_SOURCES)
+ DIST_SOURCES = $(liblinbox_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+@@ -390,6 +390,7 @@ liblinbox_la_LIBADD = \
+     util/libutil.la             \
+     randiter/libranditer.la     \
+     algorithms/libalgorithms.la
++liblinbox_la_LDFLAGS = $(GMP_LIBS) $(MPFR_LIBS) $(IML_LIBS) $(BLAS_LIBS)
+ 
+ all: all-recursive
+ 
