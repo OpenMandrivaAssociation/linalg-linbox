@@ -115,3 +115,64 @@ LD_LIBRARY_PATH=`pwd`/linbox/.libs make %{?_smp_mflags} check
 %{_libdir}/*.so
 %{_bindir}/linbox-config
 %{_mandir}/man1/linbox-config.1*
+
+
+%changelog
+* Wed Aug 15 2012 Paulo Andrade <pcpa@mandriva.com.br> 1.3.2-1
++ Revision: 814865
+- Update to release matching http://pkgs.fedoraproject.org/cgit/linbox.git
+
+* Tue Jan 24 2012 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-15
++ Revision: 767494
+- Update and correct patch required by sagemath 4.8.
+
+* Tue Jan 24 2012 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-14
++ Revision: 767465
+- Rebuild with newer interface required by sagemath 4.8
+
+* Wed Dec 07 2011 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-13
++ Revision: 738723
+- Rebuild for .la file removal.
+
+* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 1.1.6-12mdv2011.0
++ Revision: 612752
+- the mass rebuild of 2010.1 packages
+
+* Wed Feb 10 2010 Funda Wang <fwang@mandriva.org> 1.1.6-11mdv2010.1
++ Revision: 503621
+- rebuild for new gmp
+
+* Fri Jan 29 2010 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-10mdv2010.1
++ Revision: 498315
+- Correct building of liblinboxsage.so
+- Properly use atlas cblas library
+
+* Fri Jan 29 2010 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-9mdv2010.1
++ Revision: 497858
+- Update for build with givaro 3.3.1
+- Remove _disable_ld_as_needed and _disable_ld_no_undefined
+
+* Mon Aug 31 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-8mdv2010.0
++ Revision: 423095
++ rebuild (emptylog)
+
+* Tue Jun 02 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-7mdv2010.0
++ Revision: 382074
+- Correct linkage problems with liblinbox.so and liblinboxsage.so that
+  caused sagemath to crash or give improper results.
+
+* Fri May 22 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-5mdv2010.0
++ Revision: 378829
++ rebuild (emptylog)
+
+* Fri Apr 03 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-4mdv2009.1
++ Revision: 363921
+- o build with --enable-sage, and correct build for that option.
+  o correct build with --with-ntl that was failing due to --Wl,as-needed
+
+* Sat Feb 28 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-3mdv2009.1
++ Revision: 345856
+- Initial import of linalg-linbox, version 1.1.6
+  linalg-linbox is a exact computational linear algebra C++ template library.
+- linalg-linbox
+
