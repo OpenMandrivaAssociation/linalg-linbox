@@ -3,12 +3,12 @@
 
 Name:           linalg-linbox
 Version:        1.3.2
-Release:        1
+Release:        2
 Summary:        C++ Library for High-Performance Exact Linear Algebra
-Group:          Sciences/Mathematics
 License:        LGPLv2+
 URL:            http://www.linalg.org/
 Source0:        http://www.linalg.org/linbox-%{version}.tar.gz
+Source1:        %{name}.rpmlintrc
 # Sent upstream 2 Nov 2011.  Fix double frees that crash all tests.
 Patch0:         linbox-destructor.patch
 Patch1:         linbox-gcc47.patch
@@ -16,13 +16,21 @@ Patch1:         linbox-gcc47.patch
 Patch2:		linbox-int64.patch
 # Force linkage to mpfr and iml to avoid unresolved symbols
 Patch3:		linbox-underlink.patch
+# Upstream: 3 Jan 2013.  Fix driver compilation, which has bitrotted somewhat.
+Patch4:         linbox-driver.patch
+# Upstream: 3 Jan 2013.  Fix detection of LAPACK support in FFLAS-FFPACK.
+Patch5:         linbox-lapack.patch
+# Upstream: 3 Jan 2013.  Adapt to FPLLL 4.x.
+Patch6:         linbox-fplll.patch
+# Upstream: 3 Jan 2013.  Fix build when size_t is unsigned long (eg. on s390).
+Patch7:         linbox-size_t.patch
 
 BuildRequires:  fflas-ffpack-devel
 BuildRequires:  givaro-devel
 BuildRequires:  iml-devel
 BuildRequires:  libatlas-devel
-BuildRequires:  libm4ri-devel
-BuildRequires:  libm4rie-devel
+BuildRequires:  m4ri-devel
+BuildRequires:  m4rie-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  ntl-devel
 
@@ -39,7 +47,6 @@ the integers and over finite fields.
 
 %package        devel
 Summary:        Development libraries/headers for linbox
-Group:          Development/C++
 Requires:       %{name} = %{version}-%{release}
 Requires:       fflas-ffpack-devel
 
@@ -48,21 +55,26 @@ Requires:       fflas-ffpack-devel
 Headers and libraries for development with linbox.
 
 
+%package        doc
+Summary:        Documentation for %{name}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
+
+
+%description    doc
+Documentation for %{name}.
+
+
 %prep
 %setup -q -n linbox-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-
-# Fix up missing and extraneous library linkage
-sed -e "s|\$(GMP_LIBS) \$(NTL_LIBS) \$(BLAS_LIBS)|-L%{_libdir}/atlas \$(NTL_LIBS) -lcblas|" \
-    -i interfaces/driver/Makefile.in
-sed -e "s|\$(GIVARO_LIBS) \$(GMP_LIBS) \$(NTL_LIBS) \$(BLAS_LIBS)|-L%{_libdir}/atlas ../../linbox/liblinbox.la \$(GIVARO_LIBS) \$(NTL_LIBS) -lcblas|" \
-    -i interfaces/sage/Makefile.in
-
-# Fix libtool
-sed -i "s/func_apped/func_append/g" build-aux/ltmain.sh
+%patch0
+%patch1
+%patch2
+%patch3
+%patch4
+%patch5
+%patch6
+%patch7 -p1
 
 %build
 CFLAGS="%{optflags}"
@@ -75,8 +87,8 @@ export CXXFLAGS
 CPPFLAGS="$CPPFLAGS -I%{_includedir}/m4rie"
 export CPPFLAGS
 
-%configure2_5x --enable-shared --disable-static --enable-sage \
-  --enable-doc --with-ntl
+%configure2_5x --enable-shared --disable-static --enable-drivers --enable-sage \
+  --enable-optimization --enable-doc --with-ntl
 
 # Remove hardcoded rpaths
 sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
@@ -100,79 +112,19 @@ rm -f %{buildroot}%{_libdir}/*.la
 rm -rf %{buildroot}%{_prefix}/doc
 
 
-%check
-LD_LIBRARY_PATH=`pwd`/linbox/.libs make %{?_smp_mflags} check
+#%#check
+#LD_LIBRARY_PATH=`pwd`/linbox/.libs make %{?_smp_mflags} check
 
 
 %files
 %doc AUTHORS COPYING ChangeLog NEWS README TODO
 %{_libdir}/*.so.*
 
+%files doc
+%doc doc/linbox-html/*
 
 %files devel
-%doc doc/linbox-html/*
 %{_includedir}/linbox
 %{_libdir}/*.so
 %{_bindir}/linbox-config
 %{_mandir}/man1/linbox-config.1*
-
-
-%changelog
-* Wed Aug 15 2012 Paulo Andrade <pcpa@mandriva.com.br> 1.3.2-1
-+ Revision: 814865
-- Update to release matching http://pkgs.fedoraproject.org/cgit/linbox.git
-
-* Tue Jan 24 2012 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-15
-+ Revision: 767494
-- Update and correct patch required by sagemath 4.8.
-
-* Tue Jan 24 2012 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-14
-+ Revision: 767465
-- Rebuild with newer interface required by sagemath 4.8
-
-* Wed Dec 07 2011 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-13
-+ Revision: 738723
-- Rebuild for .la file removal.
-
-* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 1.1.6-12mdv2011.0
-+ Revision: 612752
-- the mass rebuild of 2010.1 packages
-
-* Wed Feb 10 2010 Funda Wang <fwang@mandriva.org> 1.1.6-11mdv2010.1
-+ Revision: 503621
-- rebuild for new gmp
-
-* Fri Jan 29 2010 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-10mdv2010.1
-+ Revision: 498315
-- Correct building of liblinboxsage.so
-- Properly use atlas cblas library
-
-* Fri Jan 29 2010 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-9mdv2010.1
-+ Revision: 497858
-- Update for build with givaro 3.3.1
-- Remove _disable_ld_as_needed and _disable_ld_no_undefined
-
-* Mon Aug 31 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-8mdv2010.0
-+ Revision: 423095
-+ rebuild (emptylog)
-
-* Tue Jun 02 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-7mdv2010.0
-+ Revision: 382074
-- Correct linkage problems with liblinbox.so and liblinboxsage.so that
-  caused sagemath to crash or give improper results.
-
-* Fri May 22 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-5mdv2010.0
-+ Revision: 378829
-+ rebuild (emptylog)
-
-* Fri Apr 03 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-4mdv2009.1
-+ Revision: 363921
-- o build with --enable-sage, and correct build for that option.
-  o correct build with --with-ntl that was failing due to --Wl,as-needed
-
-* Sat Feb 28 2009 Paulo Andrade <pcpa@mandriva.com.br> 1.1.6-3mdv2009.1
-+ Revision: 345856
-- Initial import of linalg-linbox, version 1.1.6
-  linalg-linbox is a exact computational linear algebra C++ template library.
-- linalg-linbox
-

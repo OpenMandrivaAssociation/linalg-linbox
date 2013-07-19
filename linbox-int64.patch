@@ -1,6 +1,5 @@
-diff -up linbox-1.3.2/linbox/field/Modular/modular-int64.h.orig linbox-1.3.2/linbox/field/Modular/modular-int64.h
---- linbox-1.3.2/linbox/field/Modular/modular-int64.h.orig	2012-07-03 17:34:48.498533895 -0400
-+++ linbox-1.3.2/linbox/field/Modular/modular-int64.h	2012-07-03 17:34:51.880534136 -0400
+--- ./linbox/field/Modular/modular-int64.h.orig	2012-06-07 02:30:27.000000000 -0600
++++ ./linbox/field/Modular/modular-int64.h	2012-09-26 11:26:12.483580130 -0600
 @@ -96,7 +96,7 @@ namespace LinBox
  	public:
  		typedef int64_t Element;
