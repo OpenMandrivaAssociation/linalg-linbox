@@ -1,9 +1,9 @@
 # Avoid find requires problem with atlas*-devel packages
-%define __noautoreq	'devel\\('
+%define __noautoreq	'devel\\(|libcblas\\.so\\..*|libclapack\\.so\\..*'
 
 Name:           linalg-linbox
 Version:        1.3.2
-Release:        2
+Release:        3
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 License:        LGPLv2+
 URL:            http://www.linalg.org/
