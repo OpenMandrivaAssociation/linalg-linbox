@@ -3,7 +3,7 @@
 
 Name:           linalg-linbox
 Version:        1.3.2
-Release:        3
+Release:        4
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 License:        LGPLv2+
 URL:            http://www.linalg.org/
