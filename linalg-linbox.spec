@@ -1,5 +1,5 @@
 # Avoid find requires problem with atlas*-devel packages
-%define __noautoreq	'devel\\(|libcblas\\.so\\..*|libclapack\\.so\\..*'
+%define __noautoreq	'libsatlas\\.so\\.(.*)|libtatlas\\.so\\.(.*)'
 
 Name:           linalg-linbox
 Version:        1.3.2
