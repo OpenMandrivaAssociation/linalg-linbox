@@ -2,28 +2,13 @@
 %define __noautoreq	'libsatlas\\.so\\.(.*)|libtatlas\\.so\\.(.*)'
 
 Name:           linalg-linbox
-Version:        1.3.2
-Release:        5
+Version:        1.4.2
+Release:        1
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 License:        LGPLv2+
 URL:            http://www.linalg.org/
-Source0:        http://www.linalg.org/linbox-%{version}.tar.gz
+Source0:	https://github.com/linbox-team/linbox/releases/download/v%{version}/linbox-%{version}.tar.gz
 Source1:        %{name}.rpmlintrc
-# Sent upstream 2 Nov 2011.  Fix double frees that crash all tests.
-Patch0:         linbox-destructor.patch
-Patch1:         linbox-gcc47.patch
-# Correct missing semicollon
-Patch2:		linbox-int64.patch
-# Force linkage to mpfr and iml to avoid unresolved symbols
-Patch3:		linbox-underlink.patch
-# Upstream: 3 Jan 2013.  Fix driver compilation, which has bitrotted somewhat.
-Patch4:         linbox-driver.patch
-# Upstream: 3 Jan 2013.  Fix detection of LAPACK support in FFLAS-FFPACK.
-Patch5:         linbox-lapack.patch
-# Upstream: 3 Jan 2013.  Adapt to FPLLL 4.x.
-Patch6:         linbox-fplll.patch
-# Upstream: 3 Jan 2013.  Fix build when size_t is unsigned long (eg. on s390).
-Patch7:         linbox-size_t.patch
 
 BuildRequires:  fflas-ffpack-devel
 BuildRequires:  givaro-devel
@@ -67,16 +52,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n linbox-%{version}
-%patch0
-%patch1
-%patch2
-%patch3
-%patch4
-%patch5
-%patch6
-%patch7 -p1
 
 %build
+export CC=gcc
+export CXX=g++
 CFLAGS="%{optflags}"
 %ifarch x86_64 ppc64
     CFLAGS="$CFLAGS -D__LINBOX_HAVE_INT64=1"
@@ -87,7 +66,7 @@ export CXXFLAGS
 CPPFLAGS="$CPPFLAGS -I%{_includedir}/m4rie"
 export CPPFLAGS
 
-%configure2_5x --enable-shared --disable-static --enable-drivers --enable-sage \
+%configure2_5x --enable-shared --disable-static --enable-sage \
   --enable-optimization --enable-doc --with-ntl
 
 # Remove hardcoded rpaths
@@ -128,3 +107,4 @@ rm -rf %{buildroot}%{_prefix}/doc
 %{_libdir}/*.so
 %{_bindir}/linbox-config
 %{_mandir}/man1/linbox-config.1*
+%{_libdir}/pkgconfig/linbox.pc
