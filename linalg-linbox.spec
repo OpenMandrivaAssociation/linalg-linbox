@@ -5,6 +5,7 @@ Name:           linalg-linbox
 Version:        1.4.2
 Release:        1
 Summary:        C++ Library for High-Performance Exact Linear Algebra
+Group:		Sciences/Mathematics
 License:        LGPLv2+
 URL:            http://www.linalg.org/
 Source0:	https://github.com/linbox-team/linbox/releases/download/v%{version}/linbox-%{version}.tar.gz
@@ -96,7 +97,7 @@ rm -rf %{buildroot}%{_prefix}/doc
 
 
 %files
-%doc AUTHORS COPYING ChangeLog NEWS README TODO
+%doc AUTHORS COPYING ChangeLog NEWS TODO
 %{_libdir}/*.so.*
 
 %files doc
