@@ -19,7 +19,7 @@ BuildRequires:  m4ri-devel
 BuildRequires:  m4rie-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  ntl-devel
-
+BuildRequires:	gomp-devel
 BuildRequires:  doxygen
 BuildRequires:  ghostscript
 BuildRequires:  gnuplot
