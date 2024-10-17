@@ -7,7 +7,7 @@ Release:        1
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 Group:		Sciences/Mathematics
 License:        LGPLv2+
-URL:            http://www.linalg.org/
+URL:            https://www.linalg.org/
 Source0:	https://github.com/linbox-team/linbox/releases/download/v%{version}/linbox-%{version}.tar.gz
 Source1:        %{name}.rpmlintrc
 
