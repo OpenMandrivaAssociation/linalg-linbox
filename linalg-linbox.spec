@@ -11,6 +11,11 @@ URL:            https://www.linalg.org/
 Source0:	https://github.com/linbox-team/linbox/releases/download/v%{version}/linbox-%{version}.tar.gz
 Source1:        %{name}.rpmlintrc
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  fflas-ffpack-devel
 BuildRequires:  givaro-devel
 BuildRequires:  iml-devel
